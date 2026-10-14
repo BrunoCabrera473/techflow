@@ -1,0 +1,366 @@
+TECHFLOW SOLUTIONS
+Organización del equipo, roles y tareas del proyecto integrador
+Versión inicial para acordar entre los cinco integrantes
+
+OBJETIVO DEL EQUIPO
+
+Vamos a desarrollar un sistema de gestión para una tienda de ropa ficticia. El proyecto incluye el software, la documentación técnica, el estudio estadístico, la propuesta de emprendimiento y una exposición grupal.
+
+Cada integrante tendrá responsabilidades concretas. Ser responsable de una tarea implica desarrollarla, probarla, documentarla, explicarla y corregir las observaciones recibidas. El coordinador revisará e integrará los aportes, pero cada integrante debe entregar su parte completa.
+
+Los nombres y las fechas se completarán en la primera reunión. Este documento organiza el trabajo del equipo; las decisiones de diseño que siguen son propuestas internas y deberán mantenerse coherentes con las indicaciones docentes.
+
+1. ALCANCE Y ACUERDOS COMUNES
+
+El sistema permitirá:
+- Registrar, consultar, modificar y desactivar prendas.
+- Administrar variantes por talle y color.
+- Consultar stock, registrar ingresos de mercadería y realizar ajustes justificados.
+- Registrar ventas con uno o varios artículos y descontar el stock correspondiente.
+- Consultar ventas anteriores y reportes.
+- Obtener datos para el estudio estadístico.
+
+Primera versión: una tienda y una sucursal. La tienda online, la aplicación móvil, la facturación fiscal y la gestión de varias sucursales quedan como posibles mejoras futuras.
+
+Tecnologías acordadas: HTML, CSS y JavaScript para la interfaz; Node.js para el servidor; MySQL para la base de datos. Python podrá utilizarse para el análisis estadístico.
+
+La aplicación utilizará programación orientada a objetos y arquitectura MVC:
+- Modelo: datos, operaciones y reglas del negocio.
+- Vista: pantallas e interacción con el usuario.
+- Controlador: recepción de solicitudes y coordinación con los modelos.
+
+Antes de programar por separado debemos acordar:
+- Nombres de tablas, campos, clases y carpetas.
+- Identificación de productos y variantes.
+- Operaciones del servidor y datos que recibe y devuelve cada una.
+- Formato de errores y validaciones.
+- Instrucciones comunes para ejecutar el proyecto.
+
+2. INTEGRANTE 1: COORDINACIÓN, SERVIDOR E INTEGRACIÓN
+
+Nombre: Ezequiel
+
+Objetivo: organizar el trabajo, construir la base común del sistema y asegurar que los módulos funcionen juntos.
+
+Tareas de software:
+1) Crear el repositorio compartido y la estructura inicial de carpetas.
+2) Preparar el servidor Node.js y las instrucciones para iniciarlo.
+3) Preparar, junto con el integrante 2, la configuración de conexión a MySQL.
+4) Crear un archivo de configuración de ejemplo sin contraseñas reales.
+5) Definir con el equipo los requisitos funcionales y las reglas generales.
+6) Documentar las operaciones que conectarán la interfaz con el servidor: dirección, datos de entrada, respuesta y errores posibles.
+7) Preparar un ejemplo pequeño de recorrido MVC para que los compañeros puedan seguir la misma estructura.
+8) Integrar los módulos progresivamente y revisar los cambios antes de incorporarlos a la versión principal.
+9) Probar el recorrido completo: crear prenda, ingresar stock, registrar venta y consultar reporte.
+10) Registrar los errores detectados y asignar su corrección al responsable correspondiente.
+
+Tareas de documentación y presentación:
+1) Redactar la presentación de TechFlow, la descripción del cliente ficticio, el problema, los objetivos y el alcance.
+2) Coordinar el CANVAS y redactar su versión final con los aportes de todos. Debe incluir sus nueve bloques: segmentos de clientes, propuesta de valor, canales, relación con clientes, fuentes de ingresos, recursos clave, actividades clave, socios clave y estructura de costos.
+3) Mantener el listado de etapas del desarrollo y el cronograma.
+4) Integrar el manual de sistema con las secciones de cada responsable.
+5) Integrar los textos entregados por el equipo en el informe y generar el PDF final.
+6) Organizar la exposición, preparar la apertura y el cierre y coordinar el ensayo.
+
+Entregables:
+- Repositorio y proyecto base ejecutable.
+- Documento de requisitos y acuerdos técnicos.
+- Tablero con tareas, responsables y fechas.
+- CANVAS e introducción del proyecto.
+- Sistema integrado, manual de sistema e informe final en PDF.
+
+Criterios de aceptación:
+- Otro integrante puede iniciar el proyecto siguiendo las instrucciones.
+- Todos los módulos usan los acuerdos comunes.
+- El recorrido completo funciona y se registraron sus pruebas.
+- El informe contiene los aportes revisados de los cinco integrantes.
+
+3. INTEGRANTE 2: BASE DE DATOS Y PRODUCTOS
+
+Nombre: Maximiliano
+
+Objetivo: diseñar la base de datos del sistema y desarrollar la gestión de productos y variantes.
+
+Tareas de base de datos:
+1) Diseñar el modelo entidad-relación con entidades, atributos, relaciones y cardinalidades.
+2) Revisar el diseño con los responsables de ventas y reportes antes de implementarlo.
+3) Crear el esquema relacional con claves primarias y foráneas.
+4) Definir campos obligatorios, tipos de datos y restricciones.
+5) Crear un script SQL para construir la base desde cero.
+6) Crear un script separado con datos ficticios de demostración.
+7) Elaborar un diccionario de datos: campo, tipo, significado, obligatoriedad y restricciones.
+8) Documentar cómo crear, respaldar y restaurar la base, y comprobar el procedimiento.
+
+Tablas iniciales propuestas:
+- categorias: identificador y nombre.
+- productos: identificador, nombre, descripción, categoría, precio y estado activo/inactivo.
+- talles: identificador y nombre.
+- colores: identificador y nombre.
+- variantes: identificador, producto, talle, color, código único, stock actual y stock mínimo.
+- ventas: identificador, fecha y hora, total y medio de pago.
+- detalle_venta: identificador, venta, variante, cantidad, precio unitario aplicado y subtotal.
+- movimientos_stock: identificador, variante, tipo, cantidad, fecha, motivo y referencia a la venta cuando corresponda.
+
+Reglas de diseño:
+- No repetir una combinación de producto, talle y color.
+- No repetir el código de una variante.
+- Utilizar importes decimales adecuados para dinero.
+- Conservar las ventas históricas y sus referencias.
+- En esta primera versión, las variantes de una prenda comparten precio.
+- Los cambios al esquema deben comunicarse y entregarse mediante scripts, sin exigir que otros adivinen qué modificar.
+
+Tareas del módulo de productos:
+1) Implementar las clases del modelo y los controladores correspondientes.
+2) Registrar, listar, buscar, modificar y desactivar productos.
+3) Gestionar categorías, talles, colores y variantes con el alcance acordado.
+4) Validar datos obligatorios, precios y duplicados en el servidor.
+5) Usar consultas parametrizadas para recibir valores del usuario.
+6) Coordinar la conexión con las pantallas del integrante 4.
+7) Evitar modificar stock por fuera de las operaciones de inventario.
+
+Documentación:
+- Modelo entidad-relación y esquema relacional.
+- Diccionario de datos.
+- Diagrama de clases UML, reuniendo las clases reales de todos los módulos. Cada integrante debe entregar la información de sus clases.
+- Sección de base de datos y productos para el manual de sistema.
+
+Entregables y aceptación:
+- Scripts SQL ejecutables desde una base vacía.
+- Módulo de productos integrado y probado.
+- Pruebas de alta, modificación, búsqueda, desactivación y rechazo de duplicados.
+- Diagramas coherentes con el código y la base final.
+- Desactivar un producto no elimina el historial de sus ventas.
+
+4. INTEGRANTE 3: VENTAS E INVENTARIO
+
+Nombre: Bruno
+
+Objetivo: implementar las ventas y los movimientos de mercadería sin generar inconsistencias.
+
+Tareas de ventas:
+1) Implementar las clases y los controladores de ventas.
+2) Recibir una venta con una o varias variantes y cantidades.
+3) Comprobar que cada variante exista y pueda venderse.
+4) Rechazar cantidades que no sean enteras y mayores que cero.
+5) Comprobar existencias suficientes.
+6) Calcular los precios, subtotales y total en el servidor; no confiar en el total enviado por el navegador.
+7) Conservar el precio unitario aplicado al momento de la venta.
+8) Guardar venta, detalles y movimientos, y descontar stock en una misma transacción.
+9) Revertir toda la operación si falla cualquier parte.
+10) Proteger el stock frente a dos ventas simultáneas de la misma variante.
+11) Permitir consultar ventas por fecha y abrir su detalle.
+
+Tareas de inventario:
+1) Registrar ingresos de mercadería con cantidades válidas.
+2) Registrar ajustes con un motivo obligatorio.
+3) Impedir que los ajustes dejen stock negativo.
+4) Registrar cada cambio en el historial de movimientos.
+5) Consultar existencias y variantes con stock inferior al mínimo.
+6) Mantener el stock actual y su historial consistentes, guardando ambos cambios juntos.
+7) Coordinar con el integrante 4 los formularios y mensajes.
+
+Pruebas obligatorias del módulo:
+- Venta de un artículo y venta de varios artículos.
+- Cantidades cero, negativas, decimales y superiores al stock.
+- Variante inexistente o deshabilitada.
+- Falla durante el guardado: no quedan datos parciales.
+- Cambio de precio: no altera ventas anteriores.
+- Intentos simultáneos de vender la última unidad: el stock no termina negativo.
+- Ingreso y ajuste de mercadería: stock e historial coinciden.
+
+Documentación:
+1) Elaborar el diagrama de casos de uso con los aportes de todos.
+2) Describir los casos principales: actor, condiciones previas, pasos, alternativas y resultado.
+3) Redactar las reglas de ventas e inventario para el manual de sistema.
+4) Entregar una tabla de pruebas con caso, resultado esperado, resultado obtenido y estado.
+
+Entregables y aceptación:
+- Módulos de ventas e inventario integrados.
+- Pruebas realizadas y errores corregidos.
+- Casos de uso y documentación actualizados.
+- Ninguna operación deja ventas incompletas o stock inconsistente.
+
+5. INTEGRANTE 4: INTERFAZ, MANUAL DE USUARIO Y DIAPOSITIVAS
+
+Nombre: Abel
+
+Objetivo: construir las pantallas y permitir que una persona pueda usar el sistema con claridad.
+
+Tareas de interfaz:
+1) Diseñar bocetos simples y revisarlos con el equipo antes de completar las pantallas.
+2) Definir estilos comunes: colores, tipografía, botones, formularios y tablas.
+3) Crear la navegación entre módulos.
+4) Construir la pantalla de productos: listado, búsqueda, alta, edición y variantes.
+5) Construir la pantalla de inventario: existencias, ingresos, ajustes y alertas.
+6) Construir la pantalla de ventas: selección de variantes, cantidades, artículos, total y confirmación.
+7) Construir la consulta del historial y detalle de ventas.
+8) Preparar el diseño común de reportes; el integrante 5 implementará los datos, gráficos y filtros de ese módulo.
+9) Conectar las pantallas con el servidor con apoyo de cada responsable funcional.
+10) Mostrar estados de carga, confirmaciones, errores y listas vacías.
+11) Evitar envíos repetidos mientras se procesa una operación.
+12) Comprobar legibilidad, navegación con teclado y funcionamiento en la computadora de presentación.
+
+Distribución del trabajo de conexión:
+- Integrante 2: apoya y comprueba productos y variantes.
+- Integrante 3: apoya y comprueba ventas e inventario.
+- Integrante 5: desarrolla la conexión y comportamiento de reportes.
+- Integrante 4: mantiene la coherencia visual y la navegación general.
+
+Manual de usuario:
+Debe incluir pasos y capturas reales para iniciar el sistema, registrar prendas y variantes, ingresar mercadería, ajustar stock, registrar ventas, consultar historial y obtener reportes. También debe explicar los errores habituales y qué puede hacer el usuario en cada caso.
+
+Diapositivas:
+1) Preparar una plantilla visual común.
+2) Recibir el contenido y las imágenes de cada compañero.
+3) Armar una presentación breve: empresa, problema, solución, diseño, demostración, estadísticas y conclusiones.
+4) Incorporar diagramas legibles y capturas de la versión final.
+5) Ajustar las diapositivas al tiempo de exposición indicado por los docentes.
+
+Entregables y aceptación:
+- Pantallas conectadas y estilos compartidos.
+- Ningún botón presentado como funcional queda sin implementar.
+- Los errores se muestran de forma comprensible.
+- Manual de usuario actualizado y con capturas legibles.
+- Diapositivas editables y listas para el ensayo.
+
+6. INTEGRANTE 5: REPORTES, ESTADÍSTICA Y ANÁLISIS SOCIAL
+
+Nombre: Andres
+
+Objetivo: generar información útil a partir de los datos y elaborar el estudio estadístico.
+
+Tareas de software:
+1) Acordar con el integrante 2 las consultas y los datos necesarios.
+2) Implementar las clases y operaciones del módulo de reportes.
+3) Mostrar ventas por período, importe total, cantidad de ventas e importe promedio por venta.
+4) Mostrar productos y variantes más vendidos, indicando si se ordenan por unidades o por importe.
+5) Mostrar variantes con stock bajo.
+6) Incorporar filtros de fecha y explicar el período mostrado.
+7) Construir los gráficos y conectar los resultados con la pantalla utilizando los estilos del integrante 4.
+8) Permitir exportar u obtener los datos necesarios para el estudio.
+9) Manejar períodos sin ventas sin errores ni divisiones por cero.
+10) Comparar los reportes con un conjunto pequeño de ventas calculado manualmente.
+
+Estudio estadístico:
+1) Definir un problema, los objetivos y las hipótesis.
+2) Definir la unidad de análisis y las variables, sus tipos y escalas de medición.
+3) Diseñar y validar un instrumento de recolección: formulario, encuesta o script.
+4) Explicar el origen de los datos y el período analizado. Si son simulados, declararlo y documentar cómo se generaron.
+5) Organizar los datos y preparar tablas de frecuencia.
+6) Elaborar histogramas, barras, gráficos circulares y polígonos de frecuencia según corresponda a las variables y a lo solicitado en clase.
+7) Calcular media, mediana y moda donde tenga sentido.
+8) Calcular rango, varianza y desviación estándar.
+9) Analizar la correlación entre dos variables cuantitativas justificadas.
+10) Construir e interpretar un intervalo de confianza indicando qué estima y sus supuestos.
+11) Relacionar los resultados con las hipótesis y formular recomendaciones.
+12) Explicar las limitaciones: los datos simulados no demuestran cómo se comportan los comercios reales de Coronda.
+13) Entregar los datos y el archivo de análisis para que otro integrante pueda reproducirlo.
+
+Otras tareas escritas:
+- Redactar el abstract en inglés al finalizar el desarrollo: problema, objetivo, solución, tecnologías y resultado alcanzado.
+- Redactar el análisis sociocontemporáneo vinculando el proyecto con globalización, desigualdad y mundo del trabajo. Diferenciar las fuentes consultadas de los supuestos del caso ficticio.
+- Documentar el módulo de reportes para el manual de sistema.
+
+Entregables y aceptación:
+- Reportes integrados y comprobados.
+- Datos, scripts o archivos de análisis y gráficos.
+- Informe estadístico con metodología, resultados, conclusiones y limitaciones.
+- Abstract y análisis social revisados.
+- Resultados reproducibles y coherentes con los datos entregados.
+
+7. DOCUMENTACIÓN QUE DEBE APORTAR CADA UNO
+
+Cada integrante entregará su sección redactada, con títulos claros, capturas o diagramas cuando correspondan y fuentes utilizadas. No alcanza con enviar notas sueltas para que el coordinador las escriba.
+
+Todos deben registrar durante el desarrollo:
+- Tarea realizada y fecha.
+- Decisiones tomadas y su motivo.
+- Clases y funciones principales de su módulo.
+- Pruebas y resultados.
+- Dificultades y soluciones.
+- Instrucciones necesarias para ejecutar o usar su parte.
+
+El manual de sistema integrado incluirá requisitos de instalación, configuración, arquitectura, clases, base de datos, funcionamiento de módulos, pruebas, respaldo y restauración y limitaciones conocidas.
+
+El informe final reunirá: presentación de TechFlow, cliente ficticio, problema y objetivos, CANVAS, contexto social, etapas de desarrollo, requisitos, casos de uso, diseño técnico, implementación, pruebas, estudio estadístico, conclusiones, abstract, bibliografía y manuales.
+
+Las referencias bibliográficas deben corresponder a fuentes identificables. No se incluirán números de cita sin una fuente asociada.
+
+8. SECUENCIA DE ENTREGAS
+
+HITO 1 - DEFINICIÓN
+- Todos: acordar alcance, nombres y responsabilidades.
+- Integrante 1: requisitos, repositorio, tablero y CANVAS inicial.
+- Integrante 2: borrador de datos y relaciones.
+- Integrante 3: reglas de ventas y borrador de casos de uso.
+- Integrante 4: bocetos de pantallas.
+- Integrante 5: propuesta de estudio y variables.
+
+HITO 2 - BASE FUNCIONAL
+- Integrante 1: servidor y acuerdos de comunicación.
+- Integrante 2: scripts de base y operaciones de productos.
+- Integrante 3: primera venta con transacción y descuento de stock.
+- Integrante 4: estilos comunes y pantallas mínimas de productos y ventas.
+- Integrante 5: primera consulta de reporte y diseño de recolección de datos.
+
+HITO 3 - PRIMERA INTEGRACIÓN
+- Crear una prenda con variante, ingresar existencias, vender y consultar el resultado.
+- Cada responsable corrige los problemas de su módulo.
+- No se espera a terminar todos los módulos para realizar esta integración.
+
+HITO 4 - VERSIÓN COMPLETA
+- Completar las funciones acordadas.
+- Ejecutar las pruebas y registrar resultados.
+- Tener borradores de diagramas, manuales y estudio estadístico.
+
+HITO 5 - ENTREGA FINAL
+- Corregir errores pendientes.
+- Actualizar documentación y capturas.
+- Probar la instalación siguiendo el manual en otra computadora disponible.
+- Integrar el PDF y las diapositivas.
+- Ensayar la exposición con participación de los cinco.
+
+Fechas acordadas:
+Hito 1: __________________
+Hito 2: __________________
+Hito 3: __________________
+Hito 4: __________________
+Hito 5: __________________
+Entrega docente: __________________
+
+9. FORMA DE TRABAJO Y REVISIÓN
+
+- Usaremos un tablero: Pendiente / En curso / Para revisar / Correcciones / Terminado.
+- Cada tarea tendrá un responsable, fecha, dependencia, entregable y criterio de aceptación.
+- Dividiremos las tareas grandes en entregas pequeñas que puedan mostrarse en pocos días.
+- Habrá una reunión semanal breve con demostraciones y una actualización de avance a mitad de semana.
+- Si alguien se bloquea, deberá indicar qué intentó, qué error obtuvo y qué ayuda necesita antes del vencimiento.
+- El trabajo se guardará con frecuencia en el repositorio. Se trabajará por ramas y se revisarán los cambios antes de integrarlos.
+- No se subirán contraseñas reales ni configuraciones privadas.
+- Nadie cambiará tablas o formatos usados por otros sin comunicarlo y coordinarlo.
+- Si una revisión detecta errores, el responsable corrige y vuelve a entregar.
+- La carga de trabajo se revisará en cada hito. Si hay un desequilibrio, se reasignará una tarea concreta dejando registro.
+
+Una tarea se considera terminada cuando funciona, está integrada, tiene las validaciones necesarias, fue probada, está documentada y se corrigieron las observaciones.
+
+Revisión cruzada:
+- Integrante 3 comprueba base de datos y productos.
+- Integrante 2 comprueba ventas e inventario y la instalación inicial.
+- Integrante 5 comprueba interfaz y manual de usuario.
+- Integrante 4 comprueba el uso de reportes y la claridad de gráficos.
+- Integrante 1 revisa la integración y la coherencia general. La revisión cruzada complementa las pruebas técnicas del responsable.
+
+10. EXPOSICIÓN GRUPAL
+
+Cada integrante preparará y explicará su aporte:
+- Integrante 1: TechFlow, problema, propuesta de valor, organización y cierre.
+- Integrante 2: modelo de datos, relaciones, clases y productos.
+- Integrante 3: ventas, inventario, casos de uso y pruebas.
+- Integrante 4: interfaz y demostración de uso.
+- Integrante 5: reportes, estudio estadístico y conclusiones sociales.
+
+Todos deben comprender el recorrido general del sistema y poder explicar cómo su parte se conecta con las demás. Cada uno entregará su contenido al responsable de diapositivas y participará del ensayo. El tiempo se repartirá de manera equilibrada según la duración autorizada por los docentes.
+
+ACUERDO FINAL
+
+El objetivo es construir un proyecto de calidad entre los cinco. La coordinación sirve para ordenar y acompañar el trabajo. Cada integrante es responsable de cumplir sus entregas, comunicar dificultades y colaborar en la integración.
