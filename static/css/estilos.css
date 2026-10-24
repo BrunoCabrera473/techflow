@@ -52,3 +52,30 @@ p {
     color: #166534;
     font-size: 14px;
 }
+.comprobacion {
+    margin-top: 28px;
+}
+
+button {
+    padding: 12px 18px;
+    border: none;
+    border-radius: 8px;
+    background: #2563eb;
+    color: white;
+    font: inherit;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+button:focus-visible {
+    outline: 3px solid #172033;
+    outline-offset: 3px;
+}
