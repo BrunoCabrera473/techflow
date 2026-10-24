@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechFlow — Inicio</title>
+
+    <!-- Flask genera la dirección del archivo CSS. -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/estilos.css') }}"
+    >
+</head>
+<body>
+    <main class="bienvenida">
+        <span class="marca">TECHFLOW SOLUTIONS</span>
+
+        <h1>Tu tienda, organizada.</h1>
+
+        <p>
+            Estamos construyendo un sistema para gestionar
+            productos, inventario, ventas y estadísticas.
+        </p>
+
+        <span class="estado">Primera pantalla funcionando</span>
+    </main>
+</body>
+</html>
