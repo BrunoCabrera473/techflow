@@ -58,14 +58,19 @@ Por ahora no hace falta instalar MySQL para ver la bienvenida.
 
 ```text
 techflow/
-├── run.py                  # Aplicación Flask y ruta de inicio
-├── requirements.txt        # Dependencias de Python
-├── .gitignore              # Archivos que Git debe ignorar
+├── app/
+│   ├── __init__.py                  # Crea y configura la aplicación
+│   └── controllers/
+│       ├── __init__.py
+│       └── inicio_controller.py     # Atiende la página principal
+├── run.py                          # Inicia el servidor
+├── requirements.txt                # Dependencias
+├── .gitignore                      # Archivos excluidos de Git
 ├── templates/
-│   └── index.html          # Pantalla de bienvenida
+│   └── index.html                  # Pantalla de bienvenida
 └── static/
     └── css/
-        └── estilos.css     # Diseño de la pantalla
+        └── estilos.css             # Diseño visual
 ```
 
 La carpeta `.venv` se crea en cada computadora y no se sube a GitHub.
