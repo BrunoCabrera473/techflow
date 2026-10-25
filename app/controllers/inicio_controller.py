@@ -1,9 +1,8 @@
-"""Controlador de la pantalla principal."""
+"""Controlador de la bienvenida y del estado básico del servidor."""
 
-from flask import Blueprint, render_template
+from flask import Blueprint, jsonify, render_template
 
 
-# Un Blueprint agrupa rutas para poder organizarlas por módulo.
 inicio_bp = Blueprint("inicio", __name__)
 
 
@@ -11,3 +10,12 @@ inicio_bp = Blueprint("inicio", __name__)
 def mostrar_inicio():
     """Devuelve la pantalla de bienvenida."""
     return render_template("index.html")
+
+
+@inicio_bp.get("/api/estado")
+def consultar_estado():
+    """Confirma que el servidor responde; no comprueba MySQL."""
+    return jsonify({
+        "estado": "ok",
+        "mensaje": "El servidor de TechFlow está funcionando."
+    })
